@@ -1,0 +1,312 @@
+body,
+#app {
+  background-color: #fff;
+  font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif;
+  display: flex;
+  align-items: center;
+  height: 100vh;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+::selection {
+  background-color: yellow;
+  color: black;
+}
+
+.container {
+  margin: 0 auto;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  align-content: space-between;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.main {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.heading {
+  width: 100%;
+  margin-top: 3vw;
+}
+
+h1, h2 {
+  font-weight: 700;
+  padding: 0;
+  margin: 0.5rem 0;
+  text-align: center;
+}
+
+h1 {
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: black;
+  letter-spacing: 0.02rem;
+}
+
+h1 a {
+  all: unset;
+  cursor: pointer;
+}
+
+h2 {
+  font-size: 0.8rem;
+  font-weight: 300;
+  color: #727283;
+  letter-spacing: 0.02rem;
+}
+
+@media screen and (min-width: 650px) {
+  h2 {
+    font-size: 1.2rem;
+  }
+}
+
+.output-row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 3vw;
+  margin-bottom: 5vw;
+}
+
+#output {
+  display: flex;
+  font-size: 1.6rem;
+  width: fit-content;
+  font-weight: 600;
+  opacity: 1;
+  transition: opacity 0.2s ease, background-color 0.3s ease, box-shadow 0.5s ease;
+  cursor: pointer;
+  background-color: transparent;
+  padding: 10px 40px 15px 40px;
+  border-radius: 10px;
+}
+
+#output:hover {
+  background-color: #fff8c3;
+  box-shadow: 0 10px 25px #fffbdf;
+  color: black;
+}
+
+#output:hover span {
+  color: black !important;
+}
+
+@media screen and (min-width: 650px) {
+  #output {
+    font-size: 3rem;
+  }
+}
+
+@media screen and (min-width: 900px) {
+  #output {
+    font-size: 4rem;
+  }
+}
+
+@media screen and (min-width: 1500px) {
+  #output {
+    font-size: 5rem;
+  }
+}
+
+#output.fadeOut {
+  opacity: 0;
+}
+
+#regen {
+  background-color: yellow;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 10px 25px;
+  border-radius: 2px;
+  transition: transform 0.5s ease, top 0.2s ease;
+  position: relative;
+  top: 0;
+  cursor: pointer;
+}
+
+#regen:hover {
+  transform: scale(1.1);
+}
+
+#regen:active {
+  background-color: black;
+  color: yellow;
+}
+
+@media screen and (min-width: 650px) {
+  #regen {
+    font-size: 1.2rem;
+  }
+
+  #regen:hover {
+    transform: scale(1.2);
+  }
+
+  #regen:active {
+    top: 10px;
+  }
+}
+
+.emoji {
+  display: inline-block;
+  animation: idle 1s ease;
+}
+
+.emoji.spin {
+  animation: spin 1s ease;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(720deg);
+  }
+}
+
+#output span {
+  top: 0%;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+#output.animate span {
+  animation: jump 0.5s cubic-bezier(.8,0,0,1) forwards 0s;
+}
+
+#output.animate .colour,
+.colour {
+  color: #727283;
+  animation-delay: 0s;
+}
+
+#output.animate .animal,
+.animal {
+  color: black;
+  animation-delay: 0.1s;
+}
+
+#output.animate .number,
+.number {
+  color: #727283;
+  animation-delay: 0.2s;
+}
+
+#output.animate .key,
+.key {
+  color: black;
+  animation-delay: 0.3s;
+}
+
+@keyframes jump {
+  0% {
+    top: -25px;
+  }
+
+  25% {
+    top: 25px;
+  }
+
+  100% {
+    top: 0px;
+  }
+}
+
+.copied {
+  visibility: hidden;
+  transition: opacity 0.5s ease, bottom 0.3s ease;
+  opacity: 0;
+  background-color: #e6e6e6;
+  width: fit-content;
+  padding: 10px 25px;
+  font-weight: 400;
+  color: black;
+  border-radius: 50px;
+  bottom: -35px;
+  position: relative;
+}
+
+.copied.visible {
+  bottom: 0;
+  visibility: visible;
+  opacity: 1;
+  animation: fadeOut 2s ease;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+
+  25% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0%;
+  }
+}
+
+.footer {
+  text-align: center;
+  width: 100%;
+  font-weight: 300;
+  font-size: 0.8rem;
+  letter-spacing: 0.03rem;
+  color: grey;
+  margin-top: 3vw;
+  margin-bottom: 3vw;
+}
+
+@media screen and (min-width: 650px) {
+  .footer {
+    font-size: 0.9rem;
+  }
+}
+
+.footer a {
+  color: grey;
+  text-decoration: none;
+  border-bottom: 1pt solid #dedede;
+  transition: color 0.3s ease;
+}
+
+.footer a:hover {
+  color: black;
+}
+
+a.github {
+  margin: 0 auto;
+  display: block;
+  height: 16px;
+  width: 16px;
+  background-image: url(github.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  margin-top: 1rem;
+  border-bottom: none;
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+}
+
+a.github:hover {
+  opacity: 1;
+}
