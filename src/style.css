@@ -1,7 +1,14 @@
+:root {
+  --colour-result: #727283;
+  --colour-result-inverse: #323232;
+  --colour-mono: #ffffff;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-feature-settings: "liga" 1, "calt" 1; /* required for proper rendering in some browsers */
+}
+
 body,
 #app {
-  background-color: #fff;
-  font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif;
+  background-color: var(--colour-result-inverse);
   display: flex;
   align-items: center;
   height: 100vh;
@@ -9,11 +16,13 @@ body,
   margin: 0;
   width: 100%;
   flex-wrap: wrap;
+  color: var(--colour-result);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 ::selection {
-  background-color: yellow;
-  color: black;
+  background-color: var(--colour-result);
+  color: var(--colour-result-inverse);
 }
 
 .container {
@@ -41,6 +50,14 @@ body,
   margin-top: 3vw;
 }
 
+.heading h1 a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.05em;
+}
+
 h1, h2 {
   font-weight: 700;
   padding: 0;
@@ -50,9 +67,8 @@ h1, h2 {
 
 h1 {
   font-size: 1.6rem;
-  font-weight: 500;
-  color: black;
-  letter-spacing: 0.02rem;
+  font-weight: 600;
+  letter-spacing: -0.02rem;
 }
 
 h1 a {
@@ -63,13 +79,12 @@ h1 a {
 h2 {
   font-size: 0.8rem;
   font-weight: 300;
-  color: #727283;
   letter-spacing: 0.02rem;
 }
 
 @media screen and (min-width: 650px) {
   h2 {
-    font-size: 1.2rem;
+    font-size: 1rem;
   }
 }
 
@@ -85,42 +100,43 @@ h2 {
 
 #output {
   display: flex;
-  font-size: 1.6rem;
+  font-size: 2rem;
   width: fit-content;
-  font-weight: 600;
-  opacity: 1;
-  transition: opacity 0.2s ease, background-color 0.3s ease, box-shadow 0.5s ease;
+  font-weight: 550;
+  transition: opacity 0.2s ease, background-color 0.2s ease, color 0.2s ease, transform 0.2s cubic-bezier(.6,0,0,1);
   cursor: pointer;
   background-color: transparent;
-  padding: 10px 40px 15px 40px;
-  border-radius: 10px;
+  padding: 0.1em 0.4em;
+  border-radius: 0.25em;
+  letter-spacing: -0.025em;
+  color: var(--colour-result);
 }
 
 #output:hover {
-  background-color: #fff8c3;
-  box-shadow: 0 10px 25px #fffbdf;
-  color: black;
+  background-color: var(--colour-result);
+  color: var(--colour-result-inverse);
+  opacity: 1;
 }
 
-#output:hover span {
-  color: black !important;
+#output:active {
+  transform: scale(0.99);
 }
 
 @media screen and (min-width: 650px) {
-  #output {
-    font-size: 3rem;
-  }
-}
-
-@media screen and (min-width: 900px) {
   #output {
     font-size: 4rem;
   }
 }
 
-@media screen and (min-width: 1500px) {
+@media screen and (min-width: 900px) {
   #output {
     font-size: 5rem;
+  }
+}
+
+@media screen and (min-width: 1500px) {
+  #output {
+    font-size: 6rem;
   }
 }
 
@@ -129,46 +145,46 @@ h2 {
 }
 
 #regen {
-  background-color: yellow;
+  background-color: var(--colour-result);
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 500;
   padding: 10px 25px;
-  border-radius: 2px;
-  transition: transform 0.5s ease, top 0.2s ease;
+  border-radius: 100px;
+  transition: transform 0.2s cubic-bezier(.6,0,0,1), padding 0.2s cubic-bezier(.6,0,0,1), opacity 0.2s cubic-bezier(.6,0,0,1), background-color 0.3s ease;
   position: relative;
   top: 0;
   cursor: pointer;
+  color: var(--colour-result-inverse);
 }
 
 #regen:hover {
-  transform: scale(1.1);
+  transform: scale(1.02);
 }
 
 #regen:active {
-  background-color: black;
-  color: yellow;
+  padding-top: 12px;
+  padding-bottom: 8px;
+  opacity: 0.9;
 }
 
 @media screen and (min-width: 650px) {
   #regen {
-    font-size: 1.2rem;
-  }
-
-  #regen:hover {
-    transform: scale(1.2);
-  }
-
-  #regen:active {
-    top: 10px;
+    font-size: 1.1rem;
   }
 }
 
-.emoji {
+.dice {
   display: inline-block;
   animation: idle 1s ease;
+  mask: url(dice.svg);
+  mask-position: center;
+  mask-size: cover;
+  height: 1.2em;
+  width: 1.2em;
+  background-color: var(--colour-result);
 }
 
-.emoji.spin {
+.dice.spin {
   animation: spin 1s ease;
 }
 
@@ -178,7 +194,7 @@ h2 {
   }
 
   to {
-    transform: rotate(720deg);
+    transform: rotate(360deg);
   }
 }
 
@@ -189,44 +205,42 @@ h2 {
 }
 
 #output.animate span {
-  animation: jump 0.5s cubic-bezier(.8,0,0,1) forwards 0s;
+  animation: jump 0.3s cubic-bezier(.6,0,0,1) forwards 0s;
 }
 
 #output.animate .colour,
 .colour {
-  color: #727283;
   animation-delay: 0s;
 }
 
 #output.animate .animal,
 .animal {
-  color: black;
+  font-weight: 200;
   animation-delay: 0.1s;
 }
 
 #output.animate .number,
 .number {
-  color: #727283;
   animation-delay: 0.2s;
 }
 
 #output.animate .key,
 .key {
-  color: black;
+  font-weight: 200;
   animation-delay: 0.3s;
 }
 
 @keyframes jump {
   0% {
-    top: -25px;
+    top: 0em;
   }
 
   25% {
-    top: 25px;
+    top: 0.15em;
   }
 
   100% {
-    top: 0px;
+    top: 0em;
   }
 }
 
@@ -234,12 +248,12 @@ h2 {
   visibility: hidden;
   transition: opacity 0.5s ease, bottom 0.3s ease;
   opacity: 0;
-  background-color: #e6e6e6;
+  background-color: var(--colour-result);
   width: fit-content;
-  padding: 10px 25px;
+  padding: 0.5em 1em;
   font-weight: 400;
-  color: black;
-  border-radius: 50px;
+  color: var(--colour-result-inverse);
+  border-radius: 0.5em;
   bottom: -35px;
   position: relative;
 }
@@ -261,7 +275,7 @@ h2 {
   }
 
   100% {
-    opacity: 0%;
+    opacity: 0;
   }
 }
 
@@ -270,10 +284,336 @@ h2 {
   width: 100%;
   font-weight: 300;
   font-size: 0.8rem;
-  letter-spacing: 0.03rem;
-  color: grey;
+  letter-spacing: 0.02rem;
   margin-top: 3vw;
-  margin-bottom: 3vw;
+  margin-bottom: 3vw;:root {
+  --colour-result: #727283;
+  --colour-result-inverse: #323232;
+  --colour-mono: #ffffff;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-feature-settings: "liga" 1, "calt" 1; /* required for proper rendering in some browsers */
+}
+
+  body,
+  #app {
+    background-color: var(--colour-result-inverse);
+    display: flex;
+    align-items: center;
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    flex-wrap: wrap;
+    color: var(--colour-result);
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  ::selection {
+    background-color: var(--colour-mono);
+    color: var(--colour-result);
+  }
+
+  .container {
+    margin: 0 auto;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    align-content: space-between;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  .main {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  .heading {
+    width: 100%;
+    margin-top: 3vw;
+  }
+
+  .heading h1 a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.05em;
+  }
+
+  h1, h2 {
+    font-weight: 700;
+    padding: 0;
+    margin: 0.5rem 0;
+    text-align: center;
+  }
+
+  h1 {
+    font-size: 1.6rem;
+    font-weight: 600;
+    letter-spacing: -0.02rem;
+  }
+
+  h1 a {
+    all: unset;
+    cursor: pointer;
+  }
+
+  h2 {
+    font-size: 0.8rem;
+    font-weight: 300;
+    letter-spacing: 0.02rem;
+  }
+
+  @media screen and (min-width: 650px) {
+    h2 {
+      font-size: 1.2rem;
+    }
+  }
+
+  .output-row {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 3vw;
+    margin-bottom: 5vw;
+  }
+
+  #output {
+    display: flex;
+    font-size: 1.6rem;
+    width: fit-content;
+    font-weight: 550;
+    transition: opacity 0.2s ease, background-color 0.2s ease, color 0.2s ease, transform 0.2s cubic-bezier(.6,0,0,1);
+    cursor: pointer;
+    background-color: transparent;
+    padding: 10px 40px 15px 40px;
+    border-radius: 10px;
+    letter-spacing: -0.025em;
+    color: var(--colour-result);
+  }
+
+  #output:hover {
+    background-color: var(--colour-result);
+    color: var(--colour-result-inverse);
+    opacity: 1;
+  }
+
+  #output:active {
+    transform: scale(0.99);
+  }
+
+  @media screen and (min-width: 650px) {
+    #output {
+      font-size: 4rem;
+    }
+  }
+
+  @media screen and (min-width: 900px) {
+    #output {
+      font-size: 5rem;
+    }
+  }
+
+  @media screen and (min-width: 1500px) {
+    #output {
+      font-size: 6rem;
+    }
+  }
+
+  #output.fadeOut {
+    opacity: 0;
+  }
+
+  #regen {
+    background-color: var(--colour-result);
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 0.4em 0.8em;
+    border-radius: 100px;
+    transition: transform 0.2s cubic-bezier(.6,0,0,1), padding 0.2s cubic-bezier(.6,0,0,1), opacity 0.2s cubic-bezier(.6,0,0,1), background-color 0.3s ease;
+    position: relative;
+    top: 0;
+    cursor: pointer;
+    color: var(--colour-result-inverse);
+  }
+
+  #regen:hover {
+    transform: scale(1.02);
+  }
+
+  #regen:active {
+    padding-top: 12px;
+    padding-bottom: 8px;
+    opacity: 0.9;
+  }
+
+  @media screen and (min-width: 650px) {
+    #regen {
+      font-size: 1.2rem;
+    }
+  }
+
+  .dice {
+    display: inline-block;
+    animation: idle 1s ease;
+    mask: url(dice.svg);
+    mask-position: center;
+    mask-size: cover;
+    height: 1.2em;
+    width: 1.2em;
+    background-color: var(--colour-result);
+  }
+
+  .dice.spin {
+    animation: spin 1s ease;
+  }
+
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  #output span {
+    top: 0%;
+    position: relative;
+    transition: color 0.3s ease;
+  }
+
+  #output.animate span {
+    animation: jump 0.3s cubic-bezier(.6,0,0,1) forwards 0s;
+  }
+
+  #output.animate .colour,
+  .colour {
+    animation-delay: 0s;
+  }
+
+  #output.animate .animal,
+  .animal {
+    font-weight: 200;
+    animation-delay: 0.1s;
+  }
+
+  #output.animate .number,
+  .number {
+    animation-delay: 0.2s;
+  }
+
+  #output.animate .key,
+  .key {
+    font-weight: 200;
+    animation-delay: 0.3s;
+  }
+
+  @keyframes jump {
+    0% {
+      top: 0em;
+    }
+
+    25% {
+      top: 0.15em;
+    }
+
+    100% {
+      top: 0em;
+    }
+  }
+
+  .copied {
+    visibility: hidden;
+    transition: opacity 0.5s ease, bottom 0.3s ease;
+    opacity: 0;
+    background-color: var(--colour-result);
+    width: fit-content;
+    padding: 10px 25px;
+    font-weight: 400;
+    color: var(--colour-result-inverse);
+    border-radius: 50px;
+    bottom: -35px;
+    position: relative;
+  }
+
+  .copied.visible {
+    bottom: 0;
+    visibility: visible;
+    opacity: 1;
+    animation: fadeOut 2s ease;
+  }
+
+  @keyframes fadeOut {
+    0% {
+      opacity: 1;
+    }
+
+    25% {
+      opacity: 1;
+    }
+
+    100% {
+      opacity: 0%;
+    }
+  }
+
+  .footer {
+    text-align: center;
+    width: 100%;
+    font-weight: 300;
+    font-size: 0.8rem;
+    letter-spacing: 0.02rem;
+    margin-top: 3vw;
+    margin-bottom: 3vw;
+  }
+
+  @media screen and (min-width: 650px) {
+    .footer {
+      font-size: 0.9rem;
+    }
+  }
+
+  .footer a {
+    text-decoration: none;
+    border-bottom: 1pt solid var(--colour-result);
+    transition: all 0.3s ease;
+    color: var(--colour-result)
+  }
+
+  .footer a:hover {
+    color: var(--colour-result);
+    opacity: 0.8;
+  }
+
+  a.github {
+    margin: 0 auto;
+    display: block;
+    height: 16px;
+    width: 16px;
+    mask: url(github.svg);
+    mask-position: center;
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    margin-top: 1rem;
+    border-bottom: none;
+    transition: background-color 0.3s ease, opacity 0.3s ease;
+    background-color: var(--colour-mono);
+    opacity: 0.5;
+  }
+
+  a.github:hover {
+    opacity: 1;
+  }
 }
 
 @media screen and (min-width: 650px) {
@@ -283,14 +623,15 @@ h2 {
 }
 
 .footer a {
-  color: grey;
   text-decoration: none;
-  border-bottom: 1pt solid #dedede;
-  transition: color 0.3s ease;
+  border-bottom: 1pt solid var(--colour-result);
+  transition: all 0.3s ease;
+  color: var(--colour-result)
 }
 
 .footer a:hover {
-  color: black;
+  color: var(--colour-result);
+  opacity: 0.8;
 }
 
 a.github {
@@ -298,13 +639,14 @@ a.github {
   display: block;
   height: 16px;
   width: 16px;
-  background-image: url(github.svg);
-  background-position: center;
-  background-repeat: no-repeat;
+  mask: url(github.svg);
+  mask-position: center;
+  mask-size: cover;
   margin-top: 1rem;
   border-bottom: none;
-  opacity: 0.5;
   transition: opacity 0.3s ease;
+  background-color: var(--colour-mono);
+  opacity: 0.5;
 }
 
 a.github:hover {
